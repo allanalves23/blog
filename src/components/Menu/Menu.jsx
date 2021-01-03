@@ -29,6 +29,7 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerButton,
+  CoderMindDrawerLogoContainer,
 } from '../styles';
 
 const useStyles = makeStyles(styles);
@@ -128,20 +129,14 @@ const Menu = () => {
         anchor="top"
       >
         <DrawerHeader>
-          <Grid item xs={11}>
-            <Box
-              width="100%"
-              height="100%"
-              mx={5}
-              display="flex"
-              alignItems="center"
-            >
+          <Grid item xs={10} sm={11}>
+            <CoderMindDrawerLogoContainer>
               <Typography component="h1" variant="h4" className="codermind">
                   Coder Mind
               </Typography>
-            </Box>
+            </CoderMindDrawerLogoContainer>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={2} sm={1}>
             <IconButton
               color="inherit"
               onClick={toogleDrawerMenu}

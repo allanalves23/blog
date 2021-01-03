@@ -183,3 +183,11 @@ export const DrawerButton = styled(DrawerFooter)({
   height: 100,
   fontSize: '1.5rem',
 });
+
+export const CoderMindDrawerLogoContainer = styled(Box)({
+  width: '100%',
+  height: '100%',
+  margin: '0px 40px',
+  display: 'flex',
+  alignItems: 'center',
+});
