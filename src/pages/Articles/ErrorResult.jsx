@@ -11,7 +11,7 @@ import {
 } from './styles';
 
 const ErrorResult = (props) => {
-  const {visible, message} = props;
+  const {visible, message, children} = props;
 
   return (
     <SampleContainer item xs={12} visible={visible.toString()}>
@@ -35,7 +35,7 @@ const ErrorResult = (props) => {
             </ArticleErrorResultIconContainer>
             <ArticleErrorResultMessageContainer>
               <Typography component="h2" variant="h5">
-                {message}
+                {message || children}
               </Typography>
             </ArticleErrorResultMessageContainer>
           </Box>
@@ -68,12 +68,13 @@ const ErrorResult = (props) => {
 ErrorResult.propTypes = {
   visible: PropTypes.bool,
   message: PropTypes.string,
+  children: PropTypes.node,
 };
 
 ErrorResult.defaultProps = {
   visible: false,
-  message: `Ops! ocorreu um erro ao buscar nossos artigos.
-  Já tentou atualizar a página?`,
+  message: '',
+  children: null,
 };
 
 export default ErrorResult;
