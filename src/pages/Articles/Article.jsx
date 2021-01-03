@@ -3,16 +3,17 @@ import {matchType} from '../../types';
 import {Grid} from '@material-ui/core';
 
 import axios from 'axios';
+import {getHttpStatusCode} from '../../config/httpHelper';
 
 import ArticlePlaceholder from './placeholders/ArticlePlaceholder';
-import ErrorResult from './ErrorResult';
 import FloatingButton from '../../components/FloatingButton.jsx';
 import ArticleHeader from './ArticleHeader';
 import ArticleContent from './ArticleContent';
 import ArticleComments from './ArticleComments';
 import ArticleFooter from './ArticleFooter';
+import ArticleNotFound from './ArticleNotFound';
 
-import {ArticleContainer, ArticleTextContentErrorResultContainer} from './styles';
+import {ArticleContainer} from './styles';
 
 const Article = (props) => {
   const {match} = props;
@@ -20,6 +21,7 @@ const Article = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [load, setLoad] = useState(true);
   const [isError, setIsError] = useState(false);
+  const [codeError, setCodeError] = useState(0);
 
   useEffect(() => {
     const get = async () => {
@@ -31,7 +33,10 @@ const Article = (props) => {
         const {data} = response;
         setArticle({...data, publishedAt: new Date(data.publishedAt)});
         setIsError(false);
-      }).catch(() => setIsError(true));
+      }).catch((err) => {
+        setCodeError(getHttpStatusCode(err));
+        setIsError(true);
+      });
       setIsLoading(false);
     };
 
@@ -39,7 +44,7 @@ const Article = (props) => {
       setLoad(false);
       get();
     }
-  }, [article, isLoading, load, match.params, isError]);
+  }, [article, isLoading, load, match.params, isError, codeError]);
 
   return (
     <ArticleContainer>
@@ -56,11 +61,7 @@ const Article = (props) => {
           <ArticleComments />
         </Grid>
       }
-      { isError &&
-        <ArticleTextContentErrorResultContainer>
-          <ErrorResult visible={isError} message="Ops, parece que ocorreu um erro inesperado, tente atualizar a página, se persistir reporte"/>
-        </ArticleTextContentErrorResultContainer>
-      }
+      <ArticleNotFound visible={isError} codeError={codeError} />
       <FloatingButton action={() => window.scrollTo(0, 0)}/>
     </ArticleContainer>
   );
