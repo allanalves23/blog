@@ -167,7 +167,7 @@ export const ArticleTextContentPlaceholder = styled(Box)({
 
 export const ArticleTextContentErrorResultContainer = styled(Box)({
   minHeight: '650px',
-  display: 'flex',
+  display: (props) => props.visible === 'true' ? 'flex' : 'none',
   alignItems: 'center',
   justifyContent: 'center',
 });
