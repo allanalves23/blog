@@ -147,7 +147,7 @@ const ArticlesList = (props) => {
         <NoResultsFound
           visible={!isLoading && !Boolean(articles.length) && !error }
         />
-        <ErrorResult visible={error && !isLoading} />
+        <ErrorResult visible={error && !isLoading} message="Ops! ocorreu um erro ao buscar nossos artigos. Já tentou atualizar a página?"/>
         <LoadMore
           isLoading={Boolean(isLoading && articles.length)}
           visible={Boolean(existMore && articles.length)}
